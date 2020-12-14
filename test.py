@@ -9,7 +9,8 @@ from source import Calculator
 def main():
     test = Calculator(1)
     test.user_input()
-    test.output()
+    while test.output():
+        test.output()
 
 
 if __name__ == "__main__":
