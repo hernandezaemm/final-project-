@@ -1,88 +1,30 @@
-# CE-UY 3013 Project Template
+# CE-UY 3013 Project
 
-*This file presents a description of the final project. For your submission,*
-*this file must serve as the documentation of your project, how your program*
-*should be used along with examples.*
+This file presents a description of the final project. Below is a summary of what a typical problem looks like
 
-This is the final project template for *CE-UY 3013 Computing In Civil Engineering*.
-Your project must follow this template and must be hosted on GitHub. Pay
-attention to the contents of this repository.
+**This program finds the discharge of each pipe of a given closed shape, using the Hardy Cross Method. The method basically 1) assumes an initial value of flowrate in each pipe 2) calculates the exponential friction factor 3)calculates head loss of each pipe using the assumed flowrate 4) finds the ratio between head loss and the initial flowrate 5) finds the error of the initial flowrate 6) adds the error to the initial flowrate resulting in the final flowrate 7) if the error is greater than the absolute value of 0.009 then all the steps are repeated until the error reaches the value of 0.009, when recalculating the new initial flowrate was the final flowrate from the previous iteration**
 
-```
-.
-├── input (optional)
-│   └── README.md
-├── output (optional)
-│   └── README.md
-├── .gitignore
-├── README.md
-├── requirements.txt
-├── source.py
-└── test.py
-```
+**this program is designed to follow the Hazen Williams method, using the constant of 1.85 in various formulas**
 
-Your project must have exactly the same structure, with exactly the same
-file names, except for the ``input`` and ``output`` directories that are
-optional and should only be used if you write a program that processes
-one or more data files. Here are two examples of proper use of the input and
-output directories: [ex1](https://github.com/InsightDataScience/Purchase-Analytics), [ex2](https://github.com/InsightDataScience/h1b_statistics)
+*the example followed for this example uses the units of feet and seconds*
 
+The first step to using the code, is that the user will be prompted to enter the number of pipes for loop 1 and then the diameter, length, Hazen friction factor, and initial flowrate for each pipe within the first loop. These values are to be inputted by separation of commas as shown below.
 
-## Requirements
+*Please enter number of pipes for loop 1*
 
-*Python 3 projects only, no Python 2.*
+*Enter diameter, length, Hazen friction factor, and flow rate for pipe separated by commas for pipe 1*
 
-This will be a solo project, the requirements are such that can be comfortably
-handled by a single student. The goal is to write a program that performs a
-series of **meaningful** tasks within Civil Engineering and can be easily used
-by others. This requires code that is clean, comprehensible, does not return
-unexpected errors and is accompanied by sufficient documentation.
+*0.333,100,120,1*
 
-What is a *meaningful* task? There is really no need to overthink this. In this
-course we looked at examples from structural analysis, pile foundations,
-traffic engineering and more. In other courses you were introduced to the
-methods and processes governing environmental engineering, steel design, concrete design, engineering mechanics, project management, fluid mechanics, water resources
-engineering, geotechnical engineering and much more. These methods and processes
-involve a series of manual calculations and checks considering multiple parameters.
+The code will then calculate the value of exponential friction factor (k), which is done by the equation shown below.
+(https://github.com/hernandezaemm/final-project-/blob/main/k%20equation.PNG)
 
-If I asked you to produce a flowchart of the process you followed in most of the
-assignments you have tackled so far in this program, you would have done so
-without much trouble. My point here is that you have been working with algorithms
-for quite some time already, now is the time to pick one of significant value and
-complexity and implement it in Python. From my experience, any analytical
-process that relies on a reference manual can be implemented in Python.
+The code will then calculate the value of head loss (hf), which is done by the equation shown below.
+(https://github.com/hernandezaemm/final-project-/blob/main/headloss.PNG)
 
-You will have to submit your project proposal for approval first. Do so ASAP on
-NYU Classes. All projects must be unique, rule of dibs applies.
+The code will then calculate the ratio between hf and the initial flowrate
+
+The code will then find the error from the initial flowrate and will add the error to the initial flowrate to produce the final flowrate. In order to determine if this flowrate is accurate, the value of the error is deemed to be less than the absolute value of 0.009. The equation of the error is shown below. 
+(https://github.com/hernandezaemm/final-project-/blob/main/error.PNG)
 
 
-## Grading
-
-* Practicality: 30%
-* Execution: 50%
-* Documentation and examples: 20%
-
-**Practicality:** Use common sense, this is an assignment that weighs 20% on your
-final grade, a simple program won't cut it. Use your combined effort on all class
-assignments as a reference (they also weigh 20% on your grade) Focus on preparing
-a thorough project proposal so that your instructor can comment on the usefulness
-of your project. At the same time, think how your project will benefit yourself
-and your colleagues (i.e. will this tool make you more efficient with your
-coursework? is this a tool that simplifies tedious and error-prone calculations?
-does this tool produce visualizations?)
-
-**Execution:** Clean, error-free code with lots of comments is key. Once again,
-use common sense: it is probably best to make it easy for the grader to go
-through the code than have them struggle to understand what's happening.
-Absolutely no unexpected errors, make sure to test your code before submitting.
-
-**Documentation and examples:** This README file presents the project description
-right now but for your project it must provide a detailed description of your
-program, and how it should be used with examples. Make sure to check this
-[Markdown guide](https://guides.github.com/features/mastering-markdown/)
-for tips on how to better present your work.
-
-
-Your submission will go undergo several plagiarism checks. There is risk of a
-failing score, without warning, if it becomes evident that your code comes from
-other public projects.
