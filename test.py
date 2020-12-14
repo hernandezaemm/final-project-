@@ -2,9 +2,15 @@
 # of importing a class from "source.py", instantiating a new object and printing
 # that object. Replace the code below with your own.
 
-from source import TestClass
+from source import Calculator
 
-t = TestClass(5)
 
-if __name__ == '__main__':
-    print(t)
+# number in calculator is how many loops there are in the system of pipes
+def main():
+    test = Calculator(1)
+    test.user_input()
+    test.output()
+
+
+if __name__ == "__main__":
+    main()
