@@ -4,6 +4,8 @@
 # created for the OOP assignment would go here.
 
 # Here is a test class, replace the code below with your own
+import numpy as np
+import panads as pd
 class Calculator:
     def __init__(self, loops):
         self.num_loops = loops
@@ -52,3 +54,12 @@ class Calculator:
 
                     self.loops[i + 1][j].append(h)
                     print("For Loop", i, "For Pipe", j, "The hf Value is:", h)
+
+            # this function calculates the ratio between headloss and the inital flowrate the user inputed
+
+            def ratio_formula(self):
+                for i in range(self.num_loops):
+                    for j in range(len(self.loops[i + 1])):
+                        ratio = self.loops[i + 1][j][5] / self.loops[i + 1][j][3]
+                        self.loops[i + 1][j].append(ratio)
+                        print("For Loop", i, "For Pipe", j, "The ratio Value is:", ratio) 
