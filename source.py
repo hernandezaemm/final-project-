@@ -27,3 +27,14 @@ class Calculator:
                     for k in range(len(inputs)):
                         value = float(inputs[k])
                         self.loops[i + 1][j].append(value)
+
+    # this function calculates the value of the exponential friction factor K, this value is calculated for each pipe within each loop
+    def k_formula(self):
+
+        for i in range(self.num_loops):
+
+            for j in range(len(self.loops[i + 1])):
+                k = (4.73 * float(self.loops[i + 1][j][1])) / (
+                            (float(self.loops[i + 1][j][0]) ** 4.87) * (float(self.loops[i + 1][j][2]) ** 1.85))
+                self.loops[i + 1][j].append(k)
+                print("For Loop", i, "For Pipe", j, "The K Value is:", k)
