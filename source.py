@@ -62,4 +62,29 @@ class Calculator:
                     for j in range(len(self.loops[i + 1])):
                         ratio = self.loops[i + 1][j][5] / self.loops[i + 1][j][3]
                         self.loops[i + 1][j].append(ratio)
-                        print("For Loop", i, "For Pipe", j, "The ratio Value is:", ratio) 
+                        print("For Loop", i, "For Pipe", j, "The ratio Value is:", ratio)
+                        # this function calculates the error developed from the formulas used above, then the error is added to the inital flowrate that was assumed to correct the flowarte value
+
+                def q_corrected_formula(self):
+
+                    hsums = []
+                    rsums = []
+
+                    for i in range(self.num_loops):
+                        sums = 0
+                        sums2 = 0
+                        for j in range(len(self.loops[i + 1])):
+                            sums += self.loops[i + 1][j][5]
+                            sums2 += self.loops[i + 1][j][6]
+
+                        hsums.append(abs(sums))
+                        rsums.append(abs(sums2))
+
+                    for i in range(self.num_loops):
+                        for j in range(len(self.loops[i + 1])):
+                            q_corrected = self.loops[i + 1][j][3] + (-1 * hsums[i]) / (1.85 * rsums[i])
+                            self.loops[i + 1][j].append(q_corrected)
+                            self.loops[i + 1][j].append((-1 * hsums[i]) / (1.85 * rsums[i]))
+                            print("For Loop", i, "For Pipe", j, "The q_corrected value is:", q_corrected)
+                            print("For Loop", i, "For Pipe", j, "The error value is:",
+                                  (-1 * hsums[i]) / (1.85 * rsums[i])) 
