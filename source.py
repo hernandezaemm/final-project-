@@ -38,3 +38,17 @@ class Calculator:
                             (float(self.loops[i + 1][j][0]) ** 4.87) * (float(self.loops[i + 1][j][2]) ** 1.85))
                 self.loops[i + 1][j].append(k)
                 print("For Loop", i, "For Pipe", j, "The K Value is:", k)
+
+        # this function calculates the value of headloss in each pipe within each loop
+        def hf_formula(self):
+            for i in range(self.num_loops):
+                for j in range(len(self.loops[i + 1])):
+                    if (self.loops[i + 1][j][3]) > 0:
+                        h = self.loops[i + 1][j][4] * (self.loops[i + 1][j][3] ** 1.85)
+                    elif (self.loops[i + 1][j][3]) < 0:
+
+                        h = self.loops[i + 1][j][4] * (abs(self.loops[i + 1][j][3]) ** 1.85)
+                        h = h * -1
+
+                    self.loops[i + 1][j].append(h)
+                    print("For Loop", i, "For Pipe", j, "The hf Value is:", h)
