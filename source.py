@@ -87,4 +87,47 @@ class Calculator:
                             self.loops[i + 1][j].append((-1 * hsums[i]) / (1.85 * rsums[i]))
                             print("For Loop", i, "For Pipe", j, "The q_corrected value is:", q_corrected)
                             print("For Loop", i, "For Pipe", j, "The error value is:",
-                                  (-1 * hsums[i]) / (1.85 * rsums[i])) 
+                                 (-1 * hsums[i]) / (1.85 * rsums[i]))
+
+                            # this function calls all formulas
+
+                def calculations(self):
+                    self.k_formula()
+                    self.hf_formula()
+                    self.ratio_formula()
+                    self.q_corrected_formula()
+
+                # this function checks for the iternations
+                def output(self):
+
+                    self.calculations()
+
+                    data = {"Loop": [],
+                            "Pipe": [],
+                            "K": [],
+                            "Flow Rate": [],
+                            "HeadLoss": [],
+                            "Ratio": [],
+                            "Flow Rate Corrected": [],
+                            "Error": []
+                            }
+
+                    for i in range(self.num_loops):
+                        for j in range(len(self.loops[i + 1])):
+                            data["Loop"].append(i)
+                            data["K"].append(self.loops[i + 1][j][4])
+                            data["Flow Rate"].append(self.loops[i + 1][j][3])
+                            data["HeadLoss"].append(self.loops[i + 1][j][5])
+                            data["Ratio"].append(self.loops[i + 1][j][6])
+                            data["Flow Rate Corrected"].append(self.loops[i + 1][j][7])
+                            data["Error"].append(self.loops[i + 1][j][8])
+
+                    lst = []
+                    for i in range(self.num_loops):
+                        for j in range(len(self.loops[i + 1])):
+                            if (data["Error"][i] > 0.009):
+                                lst.append(i)
+                            if i in lst:
+                                data["Error"][i] = self.loops[i + 1][j][8]
+                                self.loops[i + 1][j][3] = self.loops[i + 1][j][7]
+                    self.output()
