@@ -4,9 +4,8 @@
 # created for the OOP assignment would go here.
 
 # Here is a test class, replace the code below with your own
-class TestClass:
-    def __init__(self, number):
-        self.number = number
-
-    def __str__(self):
-        return 'number: {}'.format(self.number)
+class Calculator:
+    def __init__(self, loops):
+        self.num_loops = loops
+        self.loops = {}
+        
