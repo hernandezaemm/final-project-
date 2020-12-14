@@ -4,8 +4,10 @@
 # created for the OOP assignment would go here.
 
 # Here is a test class, replace the code below with your own
+
 import numpy as np
-import panads as pd
+import pandas as pd
+
 class Calculator:
     def __init__(self, loops):
         self.num_loops = loops
