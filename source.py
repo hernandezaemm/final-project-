@@ -91,7 +91,7 @@ class Calculator:
                             print("For Loop", i, "For Pipe", j, "The error value is:",
                                  (-1 * hsums[i]) / (1.85 * rsums[i]))
 
-                            # this function calls all formulas
+                # this function calls all formulas
 
                 def calculations(self):
                     self.k_formula()
@@ -123,16 +123,28 @@ class Calculator:
                             data["Ratio"].append(self.loops[i + 1][j][6])
                             data["Flow Rate Corrected"].append(self.loops[i + 1][j][7])
                             data["Error"].append(self.loops[i + 1][j][8])
+                            if (self.loops[i + 1][j][8] > 0.009) and (i + 1 not in lst):
+                                lst.append(i + 1)
 
-                    lst = []
-                    for i in range(self.num_loops):
-                        for j in range(len(self.loops[i + 1])):
-                            if (data["Error"][i] > 0.009):
-                                lst.append(i)
-                            if i in lst:
+                    status = True
+
+                    while status == True:
+
+                        if len(lst) == 0:
+                            status = False
+                            break
+                        else:
+                            for i in range(lst):
+                                for j in range(len(self.loops[i])):
+                                    self.loops[i][j][3] = self.loops[i][j][7]
+
+                        self.calculations()
+
+                        for i in range(self.num_loops):
+                            for j in range(len(self.loops[i + 1])):
                                 data["Error"][i] = self.loops[i + 1][j][8]
-                                self.loops[i + 1][j][3] = self.loops[i + 1][j][7]
-                    self.output()
+
+                    return status
 
 
 # we do another interation if formula is greater than 0.009
