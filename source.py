@@ -131,3 +131,41 @@ class Calculator:
                                 data["Error"][i] = self.loops[i + 1][j][8]
                                 self.loops[i + 1][j][3] = self.loops[i + 1][j][7]
                     self.output()
+
+
+# we do another interation if formula is greater than 0.009
+
+# loops = [[["AB", [L,D,C], K, Q, , H, ratio, Q_Corrected]]]
+
+# each index is a list that represents a loop, each index within that
+# list is a pipe, each index represents key values
+'''
+loops = {
+    1:[
+        [L,D,C,Q (Flow Rate),K (Exponential Friction Factor),HF(headloss) ,ratio,Q_Corrected], 
+
+        [L,D,C,Q,K,HF,ratio,Q_Corrected]],
+
+    2:[[,L,D,C,Q,K,HF,ratio,Q_Corrected],[,L,D,C,Q,K,HF,ratio,Q_Corrected]]
+
+    }
+
+'''
+
+'''
+        status = true
+        while status == true:
+            #Code to display table
+            if data["Error"][-1]<=0.009:
+                break
+
+            for i in range (self.num_loops): 
+                for j in range (len(self.loops[i+1])):
+
+                    self.loops[i+1][j][3] = self.loops[i+1][j][7]
+
+            self.calculations()
+            for i in range (self.num_loops): 
+                for j in range (len(self.loops[i+1])):
+                    data["Error"][i]= self.loops[i+1][j][8]
+              '''
