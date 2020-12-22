@@ -6,15 +6,14 @@
 # Here is a test class, replace the code below with your own
 
 import numpy as np
-import pandas as pd
 
 class Calculator:
     def __init__(self, loops):
         self.num_loops = loops
         self.loops = {}
 
-        # this function asks for the user to input the information for the pipe network, first they have to specify how many loops there are in the network, then for each pipe in each loop the user inputsthe diameter, length, Hazen friction factor, and the inital flowrate guess
-        def user_input(self):
+    # this function asks for the user to input the information for the pipe network, first they have to specify how many loops there are in the network, then for each pipe in each loop the user inputsthe diameter, length, Hazen friction factor, and the inital flowrate guess
+    def user_input(self):
             value = 0
 
             for i in range(self.num_loops):
@@ -35,16 +34,16 @@ class Calculator:
     # this function calculates the value of the exponential friction factor K, this value is calculated for each pipe within each loop
     def k_formula(self):
 
-        for i in range(self.num_loops):
+            for i in range(self.num_loops):
 
-            for j in range(len(self.loops[i + 1])):
-                k = (4.73 * float(self.loops[i + 1][j][1])) / (
+                for j in range(len(self.loops[i + 1])):
+                    k = (4.73 * float(self.loops[i + 1][j][1])) / (
                             (float(self.loops[i + 1][j][0]) ** 4.87) * (float(self.loops[i + 1][j][2]) ** 1.85))
-                self.loops[i + 1][j].append(k)
-                print("For Loop", i, "For Pipe", j, "The K Value is:", k)
+                    self.loops[i + 1][j].append(k)
+                    print("For Loop", i, "For Pipe", j, "The K Value is:", k)
 
-        # this function calculates the value of headloss in each pipe within each loop
-        def hf_formula(self):
+    # this function calculates the value of headloss in each pipe within each loop
+    def hf_formula(self):
             for i in range(self.num_loops):
                 for j in range(len(self.loops[i + 1])):
                     if (self.loops[i + 1][j][3]) > 0:
@@ -57,94 +56,92 @@ class Calculator:
                     self.loops[i + 1][j].append(h)
                     print("For Loop", i, "For Pipe", j, "The hf Value is:", h)
 
-            # this function calculates the ratio between headloss and the inital flowrate the user inputed
+        # this function calculates the ratio between headloss and the inital flowrate the user inputed
+        def ratio_formula(self):
+            for i in range(self.num_loops):
+                for j in range(len(self.loops[i + 1])):
+                    ratio = self.loops[i + 1][j][5] / self.loops[i + 1][j][3]
+                    self.loops[i + 1][j].append(ratio)
+                    print("For Loop", i, "For Pipe", j, "The ratio Value is:", ratio)
 
-            def ratio_formula(self):
-                for i in range(self.num_loops):
-                    for j in range(len(self.loops[i + 1])):
-                        ratio = self.loops[i + 1][j][5] / self.loops[i + 1][j][3]
-                        self.loops[i + 1][j].append(ratio)
-                        print("For Loop", i, "For Pipe", j, "The ratio Value is:", ratio)
-                        # this function calculates the error developed from the formulas used above, then the error is added to the inital flowrate that was assumed to correct the flowarte value
+        # this function calculates the error developed from the formulas used above, then the error is added to the inital flowrate that was assumed to correct the flowarte value
+        def q_corrected_formula(self):
 
-                def q_corrected_formula(self):
+            hsums = []
+            rsums = []
 
-                    hsums = []
-                    rsums = []
+            for i in range(self.num_loops):
+                sums = 0
+                sums2 = 0
+                for j in range(len(self.loops[i + 1])):
+                    sums += self.loops[i + 1][j][5]
+                    sums2 += self.loops[i + 1][j][6]
 
-                    for i in range(self.num_loops):
-                        sums = 0
-                        sums2 = 0
-                        for j in range(len(self.loops[i + 1])):
-                            sums += self.loops[i + 1][j][5]
-                            sums2 += self.loops[i + 1][j][6]
+                hsums.append(abs(sums))
+                rsums.append(abs(sums2))
 
-                        hsums.append(abs(sums))
-                        rsums.append(abs(sums2))
-
-                    for i in range(self.num_loops):
-                        for j in range(len(self.loops[i + 1])):
-                            q_corrected = self.loops[i + 1][j][3] + (-1 * hsums[i]) / (1.85 * rsums[i])
-                            self.loops[i + 1][j].append(q_corrected)
-                            self.loops[i + 1][j].append((-1 * hsums[i]) / (1.85 * rsums[i]))
-                            print("For Loop", i, "For Pipe", j, "The q_corrected value is:", q_corrected)
-                            print("For Loop", i, "For Pipe", j, "The error value is:",
+            for i in range(self.num_loops):
+                for j in range(len(self.loops[i + 1])):
+                    q_corrected = self.loops[i + 1][j][3] + (-1 * hsums[i]) / (1.85 * rsums[i])
+                    self.loops[i + 1][j].append(q_corrected)
+                    self.loops[i + 1][j].append((-1 * hsums[i]) / (1.85 * rsums[i]))
+                    print("For Loop", i, "For Pipe", j, "The q_corrected value is:", q_corrected)
+                    print("For Loop", i, "For Pipe", j, "The error value is:",
                                  (-1 * hsums[i]) / (1.85 * rsums[i]))
 
-                # this function calls all formulas
+        # this function calls all formulas
+        def calculations(self):
+            self.k_formula()
+            self.hf_formula()
+            self.ratio_formula()
+            self.q_corrected_formula()
 
-                def calculations(self):
-                    self.k_formula()
-                    self.hf_formula()
-                    self.ratio_formula()
-                    self.q_corrected_formula()
+        # this function checks for the iternations
+        def output(self):
 
-                # this function checks for the iternations
-                def output(self):
+            self.calculations()
+            lst = []
+            data = {"Loop": [],
+                    "Pipe": [],
+                    "K": [],
+                    "Flow Rate": [],
+                    "HeadLoss": [],
+                    "Ratio": [],
+                    "Flow Rate Corrected": [],
+                    "Error": []
+                    }
 
-                    self.calculations()
+            for i in range(self.num_loops):
+                for j in range(len(self.loops[i + 1])):
+                    data["Loop"].append(i)
+                    data["K"].append(self.loops[i + 1][j][4])
+                    data["Flow Rate"].append(self.loops[i + 1][j][3])
+                    data["HeadLoss"].append(self.loops[i + 1][j][5])
+                    data["Ratio"].append(self.loops[i + 1][j][6])
+                    data["Flow Rate Corrected"].append(self.loops[i + 1][j][7])
+                    data["Error"].append(self.loops[i + 1][j][8])
+                    if (self.loops[i + 1][j][8] > 0.009) and (i + 1 not in lst):
+                        lst.append(i + 1)
 
-                    data = {"Loop": [],
-                            "Pipe": [],
-                            "K": [],
-                            "Flow Rate": [],
-                            "HeadLoss": [],
-                            "Ratio": [],
-                            "Flow Rate Corrected": [],
-                            "Error": []
-                            }
+            status = True
 
-                    for i in range(self.num_loops):
-                        for j in range(len(self.loops[i + 1])):
-                            data["Loop"].append(i)
-                            data["K"].append(self.loops[i + 1][j][4])
-                            data["Flow Rate"].append(self.loops[i + 1][j][3])
-                            data["HeadLoss"].append(self.loops[i + 1][j][5])
-                            data["Ratio"].append(self.loops[i + 1][j][6])
-                            data["Flow Rate Corrected"].append(self.loops[i + 1][j][7])
-                            data["Error"].append(self.loops[i + 1][j][8])
-                            if (self.loops[i + 1][j][8] > 0.009) and (i + 1 not in lst):
-                                lst.append(i + 1)
+            while status == True:
 
-                    status = True
+                if len(lst) == 0:
+                    status = False
+                    break
+                else:
+                    for i in range(lst):
+                        for j in range(len(self.loops[i])):
+                            self.loops[i][j][3] = self.loops[i][j][7]
 
-                    while status == True:
+                self.calculations()
 
-                        if len(lst) == 0:
-                            status = False
-                            break
-                        else:
-                            for i in range(lst):
-                                for j in range(len(self.loops[i])):
-                                    self.loops[i][j][3] = self.loops[i][j][7]
+                for i in range(self.num_loops):
+                    for j in range(len(self.loops[i + 1])):
+                        data["Error"][i] = self.loops[i + 1][j][8]
 
-                        self.calculations()
-
-                        for i in range(self.num_loops):
-                            for j in range(len(self.loops[i + 1])):
-                                data["Error"][i] = self.loops[i + 1][j][8]
-
-                    return status
+            return status
 
 
 # we do another interation if formula is greater than 0.009
@@ -156,7 +153,7 @@ class Calculator:
 '''
 loops = {
     1:[
-        [L,D,C,Q (Flow Rate),K (Exponential Friction Factor),HF(headloss) ,ratio,Q_Corrected], 
+        [L,D,C,Q (Flow Rate),K (Exponential Friction Factor),HF(headloss) ,ratio,Q_Corrected],
 
         [L,D,C,Q,K,HF,ratio,Q_Corrected]],
 
@@ -173,13 +170,13 @@ loops = {
             if data["Error"][-1]<=0.009:
                 break
 
-            for i in range (self.num_loops): 
+            for i in range (self.num_loops):
                 for j in range (len(self.loops[i+1])):
 
                     self.loops[i+1][j][3] = self.loops[i+1][j][7]
 
             self.calculations()
-            for i in range (self.num_loops): 
+            for i in range (self.num_loops):
                 for j in range (len(self.loops[i+1])):
                     data["Error"][i]= self.loops[i+1][j][8]
               '''
