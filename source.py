@@ -5,7 +5,6 @@
 
 # Here is a test class, replace the code below with your own
 
-import numpy as np
 
 class Calculator:
     def __init__(self, loops):
@@ -57,7 +56,7 @@ class Calculator:
                     print("For Loop", i, "For Pipe", j, "The hf Value is:", h)
 
         # this function calculates the ratio between headloss and the inital flowrate the user inputed
-        def ratio_formula(self):
+    def ratio_formula(self):
             for i in range(self.num_loops):
                 for j in range(len(self.loops[i + 1])):
                     ratio = self.loops[i + 1][j][5] / self.loops[i + 1][j][3]
@@ -65,7 +64,7 @@ class Calculator:
                     print("For Loop", i, "For Pipe", j, "The ratio Value is:", ratio)
 
         # this function calculates the error developed from the formulas used above, then the error is added to the inital flowrate that was assumed to correct the flowarte value
-        def q_corrected_formula(self):
+    def q_corrected_formula(self):
 
             hsums = []
             rsums = []
@@ -90,14 +89,14 @@ class Calculator:
                                  (-1 * hsums[i]) / (1.85 * rsums[i]))
 
         # this function calls all formulas
-        def calculations(self):
+    def calculations(self):
             self.k_formula()
             self.hf_formula()
             self.ratio_formula()
             self.q_corrected_formula()
 
         # this function checks for the iternations
-        def output(self):
+    def output(self):
 
             self.calculations()
             lst = []
