@@ -3,4 +3,3 @@
 # is a comment. Do not comment out any lines with required libraries and versions.
 
 numpy==1.19.4
-panadas==3.3.3
