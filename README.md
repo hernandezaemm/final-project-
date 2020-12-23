@@ -24,10 +24,11 @@ The code will then calculate the value of head loss (hf), which is done by the e
 
 The code will then calculate the ratio between hf and the initial flowrate
 
-The code will then find the error from the initial flowrate and will add the error to the initial flowrate to produce the final flowrate. In order to determine if this flowrate is accurate, the value of the error is deemed to be less than the absolute value of 0.009. The equation of the error is shown below. 
+The code will then find the error from the initial flowrate and will add the error to the initial flowrate to produce the final flowrate. In order to determine if this flowrate is accurate, the value of the error is deemed to be less than the absolute value of 0.009. The equation of the error is shown below.
 (https://github.com/hernandezaemm/final-project-/blob/main/error.PNG)
 
-
+An example of how the code output should look like is shown below.
+(https://github.com/hernandezaemm/final-project-/blob/main/coding%20output%20example.png)
 The example the code was modeled after is shown below.
 (https://github.com/hernandezaemm/final-project-/blob/main/diagram%201.PNG)
 (https://github.com/hernandezaemm/final-project-/blob/main/pg1.PNG)
