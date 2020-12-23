@@ -28,7 +28,8 @@ The code will then find the error from the initial flowrate and will add the err
 (https://github.com/hernandezaemm/final-project-/blob/main/error.PNG)
 
 An example of how the code output should look like is shown below.
-(https://github.com/hernandezaemm/final-project-/blob/main/coding%20output%20example.png)
+(https://github.com/hernandezaemm/final-project-/blob/main/Coding_output_example.png)
+
 The example the code was modeled after is shown below.
 (https://github.com/hernandezaemm/final-project-/blob/main/diagram%201.PNG)
 (https://github.com/hernandezaemm/final-project-/blob/main/pg1.PNG)
